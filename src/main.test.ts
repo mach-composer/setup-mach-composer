@@ -1,11 +1,11 @@
 import {expect, test} from '@jest/globals'
-import {getReleaseURL} from './main'
+import {downloadCLI, getReleaseURL} from './main'
 
 jest.mock('os')
 const os = require('os')
 
 // shows how the runner will run a javascript action with env / stdout protocol
-test('releae url', () => {
+test('release url', () => {
   os.platform = jest.fn().mockReturnValue('linux')
   os.arch = jest.fn().mockReturnValue('amd64')
 

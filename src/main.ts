@@ -1,8 +1,8 @@
 import * as os from 'os'
-import {chmod} from 'fs/promises'
 import * as core from '@actions/core'
 import * as cache from '@actions/tool-cache'
 import * as semver from 'semver'
+import path from 'path'
 
 const toolName = 'mach-composer'
 
@@ -41,20 +41,18 @@ function getArch(): string {
   return val
 }
 
-async function downloadCLI(version: string): Promise<string> {
+export async function downloadCLI(version: string): Promise<string> {
   const url = getReleaseURL(version)
-  const downloadedTool = await cache.downloadTool(url)
-  const permissions = 0o755
-
-  await chmod(downloadedTool, permissions)
-  return await cache.cacheFile(downloadedTool, toolName, toolName, version)
+  const artifactPath = await cache.downloadTool(url)
+  const dirPath = await cache.extractTar(artifactPath)
+  const binPath = path.join(dirPath, 'bin/mach-composer')
+  return await cache.cacheFile(binPath, toolName, toolName, version)
 }
 
 export function getReleaseURL(version: string): string {
   const cleanVersion = semver.clean(version) || ''
   const platform = getPlatform()
   const arch = getArch()
-
   return encodeURI(
     `https://github.com/labd/mach-composer/releases/download/v${cleanVersion}/mach-composer-${cleanVersion}-${platform}-${arch}.tar.gz`
   )

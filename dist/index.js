@@ -38,13 +38,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getReleaseURL = void 0;
+exports.getReleaseURL = exports.downloadCLI = void 0;
 const os = __importStar(__nccwpck_require__(2037));
-const promises_1 = __nccwpck_require__(3292);
 const core = __importStar(__nccwpck_require__(2186));
 const cache = __importStar(__nccwpck_require__(7784));
 const semver = __importStar(__nccwpck_require__(1383));
+const path_1 = __importDefault(__nccwpck_require__(1017));
 const toolName = 'mach-composer';
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -82,12 +85,13 @@ function getArch() {
 function downloadCLI(version) {
     return __awaiter(this, void 0, void 0, function* () {
         const url = getReleaseURL(version);
-        const downloadedTool = yield cache.downloadTool(url);
-        const permissions = 0o755;
-        yield (0, promises_1.chmod)(downloadedTool, permissions);
-        return yield cache.cacheFile(downloadedTool, toolName, toolName, version);
+        const artifactPath = yield cache.downloadTool(url);
+        const dirPath = yield cache.extractTar(artifactPath);
+        const binPath = path_1.default.join(dirPath, 'bin/mach-composer');
+        return yield cache.cacheFile(binPath, toolName, toolName, version);
     });
 }
+exports.downloadCLI = downloadCLI;
 function getReleaseURL(version) {
     const cleanVersion = semver.clean(version) || '';
     const platform = getPlatform();
@@ -9822,14 +9826,6 @@ module.exports = require("events");
 
 "use strict";
 module.exports = require("fs");
-
-/***/ }),
-
-/***/ 3292:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("fs/promises");
 
 /***/ }),
 
