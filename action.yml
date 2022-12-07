@@ -16,7 +16,7 @@ inputs:
   version:
     description: "Mach Composer version"
     default: "2.4.6"
-  config_file:
+  config:
     description: 'Mach Composer config file'
     required: true
     default: 'main.yml'
