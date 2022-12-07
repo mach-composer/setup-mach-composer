@@ -1,0 +1,26 @@
+name: 'Deploy'
+description: 'Deploy a mach composer setup'
+author: 'Lab Digital'
+branding:
+  color: 'green'
+  icon: 'play'
+
+inputs:
+  env:
+    description: 'environment vars'
+  project:
+    description: 'Key of the project'
+    required: true
+  sites:
+    description: 'Sites to deploy'
+  version:
+    description: "Mach Composer version"
+    default: "2.4.6"
+  config_file:
+    description: 'Mach Composer config file'
+    required: true
+    default: 'main.yml'
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
