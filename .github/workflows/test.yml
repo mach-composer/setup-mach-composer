@@ -20,3 +20,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./
+      - run: file $(which mach-composer)
+
