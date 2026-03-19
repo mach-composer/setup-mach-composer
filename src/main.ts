@@ -34,11 +34,11 @@ function getPlatform(): string {
 }
 
 function getArch(): string {
-  let val = os.arch()
-  if (val === 'x64') {
-    val = 'amd64'
+  const arch = os.arch()
+  if (arch === 'x64') {
+    return 'amd64'
   }
-  return val
+  return arch
 }
 
 export async function downloadCLI(version: string): Promise<string> {
@@ -58,4 +58,6 @@ export function getReleaseURL(version: string): string {
   )
 }
 
-run()
+if (!process.env.JEST_WORKER_ID) {
+  run()
+}
