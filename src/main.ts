@@ -54,7 +54,7 @@ export function getReleaseURL(version: string): string {
   const platform = getPlatform()
   const arch = getArch()
   return encodeURI(
-    `https://github.com/labd/mach-composer/releases/download/v${cleanVersion}/mach-composer-${cleanVersion}-${platform}-${arch}.tar.gz`
+    `https://github.com/mach-composer/mach-composer-cli/releases/download/v${cleanVersion}/mach-composer-${cleanVersion}-${platform}-${arch}.tar.gz`
   )
 }
 
