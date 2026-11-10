@@ -9,7 +9,7 @@
     "format": "prettier --write '**/*.ts'",
     "format-check": "prettier --check '**/*.ts'",
     "lint": "eslint src/**/*.ts",
-    "package": "ncc build --source-map --license licenses.txt",
+    "package": "rolldown -c rolldown.config.mjs",
     "test": "jest",
     "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
   },
@@ -35,13 +35,13 @@
     "@types/jest": "^29.5.14",
     "@types/node": "^24.19.2",
     "@typescript-eslint/parser": "^5.62.0",
-    "@vercel/ncc": "^0.36.1",
     "eslint": "^8.57.1",
     "eslint-plugin-github": "^4.6.0",
     "eslint-plugin-jest": "^27.9.0",
     "jest": "^29.7.0",
     "js-yaml": "^4.3.2",
     "prettier": "2.8.0",
+    "rolldown": "1.2.16",
     "ts-jest": "^29.4.15",
     "typescript": "^5.0.0"
   },
