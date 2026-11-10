@@ -1,0 +1,18 @@
+# Supply chain protection
+# Only install package versions that have been published for at least 14 days
+minimumReleaseAge: 20160
+# Fail when a package's trust level (provenance / trusted publisher) drops compared to earlier releases
+trustPolicy: no-downgrade
+trustPolicyExclude:
+  # semver 6.3.2 is the first 6.x release with trusted publishing but is younger
+  # than minimumReleaseAge; allow the older 6.3.1 that babel/jest depend on.
+  - semver@6.3.1
+# Disallow transitive dependencies from git repositories or direct tarball URLs
+blockExoticSubdeps: true
+# Fail the install when a dependency has unapproved build scripts
+strictDepBuilds: true
+# Dependencies allowed to run install scripts (none needed)
+allowBuilds: {}
+
+overrides:
+  '@actions/http-client': ^3.0.2
